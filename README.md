@@ -1,5 +1,6 @@
 # BlogApp
-A MERN web App for the blogger who can share their expererinces or any views on differernt background like music.technology,fashion,sports,movies and about anything.
+A MERN web App for the blogger who can share their expererinces or any views on differernt background like music, technology, fashion,sports, movies and about anything.
+
 Features implemented:
 1. User need to login/signup to enter homepage with unique user id.
 2. user can create blolg on any background and post it for publi reviews.
