@@ -20,7 +20,6 @@ const Text = styled(Typography)`
     color: #878787;
 `;
 
-
 const Contact = () => {
     return (
         <Box>

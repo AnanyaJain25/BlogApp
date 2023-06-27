@@ -10,6 +10,8 @@ flex-direction : column;
 
 `
 
+
+
 const Heading = styled(Typography)`
 font-size:70px;
 color:#FFFFFF;
@@ -23,11 +25,12 @@ background:#FFFFFF;
 
 const banner=()=>{
     return(
-    
+  
         <Image>
             <Heading>BLOG</Heading>
             <SubHeading>EVERYTHING</SubHeading>
         </Image>
+ 
 
 
 

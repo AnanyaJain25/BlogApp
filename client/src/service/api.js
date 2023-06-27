@@ -62,7 +62,7 @@ const processError =(error)=>{
         return{
             isError:true,
             msg: API_NOTIFICATION_MESSAGES.responseFailure,
-            code: error.reponse.status
+            code: error.response.status
         }
 
     }
@@ -119,5 +119,7 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
             }
         });
 }
+
+
 
 export { API };
