@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 
-import { Box, Typography, styled } from '@mui/material';
+import { Box, Button, Typography, styled , Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
@@ -9,7 +9,12 @@ import { API } from '../../service/api';
 import { DataContext } from '../../context/DataProvider';
 
 // components
+import Comments from './comments/Comments';
 
+const Keywords = styled(Button)`
+margin: 11px ;
+
+`
 
 const Container = styled(Box)(({ theme }) => ({
     margin: '50px 100px',
@@ -54,6 +59,10 @@ const Author = styled(Box)(({ theme }) => ({
     },
 }));
 
+const Description = styled(Typography)`
+word-break : break-word;
+`
+
 const DetailView = () => {
     const url = 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
     
@@ -62,6 +71,10 @@ const DetailView = () => {
 
     const navigate = useNavigate();
     const { id } = useParams();
+
+     const [keywordss,setKeywords]=useState('');
+     const [isOpen,setIsOpen]=useState(false);
+     const [loading,setLoading]=useState(false);
     
     useEffect(() => {
         const fetchData = async () => {
@@ -73,10 +86,55 @@ const DetailView = () => {
         fetchData();
     }, []);
 
+    
     const deleteBlog = async () => {  
-        await API.deletePost(post._id);
-        navigate('/')
+        let response  = await API.deletePost(post._id);
+        if(response.isSuccess){
+        navigate('/')}
+    
     }
+    
+    const extractKeywords = async(text) =>{
+        setLoading(true);
+        setIsOpen(true);
+
+        const options = {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
+            },
+            body:JSON.stringify({
+                model:'text-davinci-003',
+                prompt:'Extract top 20 keywords from the text and show them with a space and comma in between\n\n' + text + '',
+                temperature: 0.5,
+                max_tokens:60,
+                frequency_penalty:0.8
+
+            })
+        }
+
+
+        fetch(process.env.REACT_APP_OPENAI_API_URL,options).then(async(res) => {
+            console.log(res);
+            const json = await res.json();
+            console.log(json)
+
+            const data = json.choices[0].text.trim();
+            console.log(data);
+            setKeywords(data);
+            setLoading(false);
+         }).catch(err => console.log(err))
+
+
+        
+    };
+
+ 
+    const submitText =()=>{
+        extractKeywords(post.description) ;
+    }
+
 
     return (
         <Container>
@@ -98,10 +156,35 @@ const DetailView = () => {
                 </Link>
                 <Typography style={{marginLeft: 'auto'}}>{new Date(post.createdDate).toDateString()}</Typography>
             </Author>
+    
+            <Description>{post.description}</Description>
 
-            <Typography>{post.description}</Typography>
+            <Keywords 
+            variant="contained"
+             color="primary"
+            onClick={submitText}>Fetch Keywords</Keywords>
+            <Dialog open={isOpen} onClose={()=>setIsOpen(false)} >
+                <DialogTitle>Keywords</DialogTitle>
+                <DialogContent>
+                    {loading ? (
+                        <CircularProgress/>
+                    ):(
+                    <DialogContentText>
+                      {keywordss}
+                    </DialogContentText>
+                    )
+                    }
+                    
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={()=>setIsOpen(false)}>Okay</Button>
+                </DialogActions>
+
+            </Dialog>
+            
+            <Comments post = {post}/>
            
-        </Container>
+        </Container >
     )
 }
 

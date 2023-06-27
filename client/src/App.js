@@ -10,6 +10,10 @@ import Header from './components/header/Header';
 import {BrowserRouter, Routes, Route , Outlet , Navigate} from 'react-router-dom';
 import DetailView from './components/details/DetailView';
 import { useState } from 'react';
+import About from './components/about/About';
+import Contact from './components/contacts/Contacts';
+
+
 function App() {
  const PrivateRoute = ({ isAuthenticate ,...props }) =>{
   const token =sessionStorage.getItem('accessToken');
@@ -43,6 +47,14 @@ function App() {
             </Route>
       <Route path='/update/:id' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
               <Route path='/update/:id' element={<Update />} />
+            </Route>
+
+      <Route path='/about' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
+              <Route path='/about' element={<About />} />
+            </Route>
+
+      <Route path='/contact' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
+              <Route path='/contact' element={<Contact />} />
             </Route>
 
             </Routes>
