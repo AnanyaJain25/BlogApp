@@ -140,8 +140,6 @@ const Login = ({isUserAuthenticated}) =>{
 
          setAccount({username: response.data.username, name: response.data.name})
          isUserAuthenticated(true);
-
-
          navigate('/');
         }else{
          setError('Something went wrong!')

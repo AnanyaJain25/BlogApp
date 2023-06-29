@@ -106,14 +106,14 @@ const DetailView = () => {
             },
             body:JSON.stringify({
                 model:'text-davinci-003',
-                prompt:'Extract top 20 keywords from the text and show them with a space and comma in between\n\n' + text + '',
+                prompt:'Extract 50 keywords from the text and show them with a space and comma in between\n\n' + text + '',
                 temperature: 0.5,
                 max_tokens:60,
                 frequency_penalty:0.8
 
             })
         }
-
+        console.log(text);
 
         fetch(process.env.REACT_APP_OPENAI_API_URL,options).then(async(res) => {
             console.log(res);

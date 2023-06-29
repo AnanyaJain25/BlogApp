@@ -16,3 +16,16 @@ react ko unik key chaiye hoti hai map category.id se error hat ta hai
 grid se responsive design banta hai
 
 useEffect 2nd hook first was useState
+
+moving my code toproduction environment
+
+backend ka jar aur frontend ka build for deploying
+
+production env mein bydefault name server.js hota hai
+sb json mein update kr do index.js->server.js
+nodemon to node at production env
+
+server ki scripts mein client ko chalane ke liye scripts likho;
+client mein jakar npm install kyunki production mein kbhi push ni hoti
+build ko pass krnae ke liye build banana bhi hota hai!
+

@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
     baseURL: API_URL,
     timeout: 10000, // 10 sec
     headers:{
-        "Content-Type" : "application/json"
+        "Content-Type" : "application/json" 
     }
 })
 //will help in creating common api
