@@ -1,6 +1,10 @@
-import { AppBar, Toolbar,Typography ,styled} from "@mui/material";
+import { AppBar, Box, Toolbar,styled} from "@mui/material";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import { Link} from 'react-router-dom'
+import { useContext } from 'react';
+import { DataContext } from '../../context/DataProvider';
 
-import { Link } from "react-router-dom";
 
 const Component = styled(AppBar)`
    background : #ffffff;
@@ -14,8 +18,18 @@ justify-content:center;
     color : #000;
 }
 `
+ 
+
 
 const Header = () =>{
+    
+   
+    const { account } = useContext(DataContext);
+    const url = account.picture;
+
+    
+
+
     return(
         <Component>
             <Container>
@@ -23,6 +37,8 @@ const Header = () =>{
                <Link to = '/about'>ABOUT</Link>
                <Link to = '/contact'>CONTACT</Link>
                <Link to = '/login'>LOGOUT</Link>
+              <Link to = {`/view/${account.id}`} ><Avatar alt={account.name} src={url||"/static/images/avatar/1.jpg"} /></Link>
+
             </Container>
         </Component>
     )

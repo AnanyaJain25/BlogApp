@@ -1,5 +1,6 @@
 
 import { styled, Box, Typography } from '@mui/material';
+
 //&>img, &>p that means container is a parent and  img and p are children, it only effects to given child
 const Container = styled(Box)`
     border: 1px solid #d3cede;
@@ -42,6 +43,7 @@ const Post = ({ post }) => {
     const addEllipsis = (str, limit) => {
         return str.length > limit ? str.substring(0, limit) + '...' : str;
     } 
+    console.log(post);
 
     return (
         <Container>

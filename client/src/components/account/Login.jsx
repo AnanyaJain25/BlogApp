@@ -137,8 +137,9 @@ const Login = ({isUserAuthenticated}) =>{
            sessionStorage.setItem('refreshToken',`Bearer ${response.data.refreshToken}` )
         //    name 
         //    username
-
-         setAccount({username: response.data.username, name: response.data.name})
+        
+        console.log(response.data);
+         setAccount({username: response.data.username, name: response.data.name , id: response.data.id , email:response.data.email , picture:response.data.picture, bio:response.data.bio})
          isUserAuthenticated(true);
          navigate('/');
         }else{

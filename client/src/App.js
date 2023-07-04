@@ -12,8 +12,11 @@ import DetailView from './components/details/DetailView';
 import { useState } from 'react';
 import About from './components/about/About';
 import Contact from './components/contacts/Contacts';
+import Userprofile from './components/details/user/Userprofile';
+import OthersProfile from './components/details/user/OtherUser';
 
 
+ 
 function App() {
  const PrivateRoute = ({ isAuthenticate ,...props }) =>{
   const token =sessionStorage.getItem('accessToken');
@@ -55,6 +58,14 @@ function App() {
 
       <Route path='/contact' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
               <Route path='/contact' element={<Contact />} />
+            </Route>
+
+            <Route path='/Updateuser' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
+              <Route path='/Updateuser' element={<Userprofile />} />
+            </Route>
+
+            <Route path='/view/:id' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
+              <Route path='/view/:id' element={<OthersProfile />} />
             </Route>
 
             </Routes>

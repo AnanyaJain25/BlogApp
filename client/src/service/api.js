@@ -117,8 +117,9 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
                     showDownloadProgress(percentCompleted);
                 }
             }
-        });
+    });
 }
+console.log(API);
 
 
 

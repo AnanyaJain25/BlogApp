@@ -15,7 +15,7 @@ const Container = styled(Box)(({ theme }) => ({
 }));
 
 const Image = styled('img')({
-    width: '100%',
+    width: '100%', 
     height: '50vh',
     objectFit: 'cover'
 });
@@ -42,7 +42,19 @@ const Textarea = styled(TextareaAutosize)`
     }
 `;
 
-const initialPost = {
+
+
+const CreatePost = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+   
+    const [file, setFile] = useState('');
+    const { account } = useContext(DataContext);
+
+    //post.user_id set
+    const initialPost = { 
+    user_id:account.id,
     title: '',
     description: '',
     picture: '',
@@ -51,13 +63,7 @@ const initialPost = {
     createdDate: new Date()
 }
 
-const CreatePost = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const [post, setPost] = useState(initialPost);
-    const [file, setFile] = useState('');
-    const { account } = useContext(DataContext);
+const [post, setPost] = useState(initialPost);
 
     const url = post.picture ? post.picture : 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
     
@@ -75,6 +81,7 @@ const CreatePost = () => {
         getImage();
         post.categories = location.search?.split('=')[1] || 'All';
         post.username = account.username;
+
     }, [file])
 
     const savePost = async () => {
@@ -111,6 +118,7 @@ const CreatePost = () => {
                 onChange={(e) => handleChange(e)} 
             />
         </Container>
+     
     )
 }
 

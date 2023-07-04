@@ -3,6 +3,9 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import Token from '../model/token.js'
 import User from '../model/user.js';
+import Post from '../model/post.js';
+import e from 'express';
+
 
 dotenv.config();
 
@@ -24,6 +27,7 @@ export const singupUser = async (request, response) => {
 }
 
 
+
 export const loginUser = async (request, response) => {
     let user = await User.findOne({ username: request.body.username });
     if (!user) {
@@ -39,8 +43,8 @@ export const loginUser = async (request, response) => {
             const newToken = new Token({ token: refreshToken });
             await newToken.save();
         
-            response.status(200).json({ accessToken: accessToken, refreshToken: refreshToken,name: user.name, username: user.username });
-        
+          response.status(200).json({ accessToken: accessToken, refreshToken: refreshToken,name: user.name, username: user.username , id: user._id , email:user.email , picture:user.picture, bio:user.bio} );
+        //
         } else {
             response.status(400).json({ msg: 'Password does not match' })
         }
@@ -54,4 +58,41 @@ export const logoutUser = async (request, response) => {
     await Token.deleteOne({ token: token });
 
     response.status(204).json({ msg: 'logout successfull' });
-}      
+}  
+
+
+
+export const getUserById = async (request, response) => {
+    try {
+        const user = await User.find({_id:request.params.id});
+        response.status(200).json(user);
+    } catch (error) {
+        response.status(500).json(error)
+    }
+}
+export const updateprofile = async (request, response) => {
+    try {
+
+        const user = { username: request.body.username, name: request.body.name, email: request.body.email,picture: request.body.picture, bio:request.body.bio}
+        //validated input is stored in newUser
+        
+        const usertoUpdate = await User.findById(request.params.id);
+        const filter = { username: usertoUpdate.username  }; 
+        const update = { $set: { username:user.username } };
+        await Post.updateMany(filter, update);
+
+        usertoUpdate.username = user.username ;
+        usertoUpdate.name =user.name;
+        usertoUpdate.email = user.email;
+        usertoUpdate.picture = user.picture;
+        usertoUpdate.bio = user.bio; 
+        await usertoUpdate.save();
+        console.log(usertoUpdate);
+
+        return response.status(200).json({ msg: 'update successfull' });
+    } catch (error) {
+        console.log(error);
+        return response.status(500).json({ msg: 'Error while updating user' });
+    }
+}
+

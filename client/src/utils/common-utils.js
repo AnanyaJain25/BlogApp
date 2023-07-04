@@ -21,6 +21,7 @@ export const addElipsis=(str,limit)=>{
 }
 
 export const getType = (value, body) => {
+    console.log(body, typeof(body));
     if (value.params) {
         return { params: body }
     } else if (value.query) {
