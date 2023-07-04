@@ -104,7 +104,7 @@ const Userprofile = () =>{
                 setAccount({...profile, accessToken: account.accessToken, refreshToken: account.refreshToken, id: account.id});
                 console.log(account);
                 console.log(profile);
-                navigate('/user')
+                navigate( `/view/${account.id}`)
             }
 
         }).catch(e => console.log(e)); 
