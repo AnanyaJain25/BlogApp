@@ -46,7 +46,7 @@ export const loginUser = async (request, response) => {
           response.status(200).json({ accessToken: accessToken, refreshToken: refreshToken,name: user.name, username: user.username , id: user._id , email:user.email , picture:user.picture, bio:user.bio} );
         //
         } else {
-            response.status(400).json({ msg: 'Password does not match' })
+           return response.status(400).json({ msg: 'Password does not match' })
         }
     } catch (error) {
         response.status(500).json({ msg: 'error while login the user' })
@@ -70,6 +70,7 @@ export const getUserById = async (request, response) => {
         response.status(500).json(error)
     }
 }
+
 export const updateprofile = async (request, response) => {
     try {
 

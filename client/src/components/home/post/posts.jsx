@@ -24,8 +24,12 @@ const Posts = () => {
         }
         fetchData();
     }, [category]);
+
+
+    
+    
 // passing as props which means it can be use like a function in different function i.e- <Post post={post} />
-    return (
+    return ( 
         <>
             {
                 posts?.length ? posts.map(post => (

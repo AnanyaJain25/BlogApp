@@ -40,6 +40,7 @@ const UserPosts = ({ accountId }) => {
 // passing as props which means it can be use like a function in different function i.e- <Post post={post} />
     return (
         <>
+            
             {
                 posts?.length ? posts.map(post => (
                     <Grid item lg={3} sm={4} xs={12}>

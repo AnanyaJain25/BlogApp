@@ -20,7 +20,7 @@ router.post('/logout', logoutUser);
 
 
 
-router.get('/users/:id',getUserById);
+router.get('/users/:id',authenticateToken,getUserById);
  
 
 

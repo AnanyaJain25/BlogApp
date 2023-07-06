@@ -1,6 +1,7 @@
 
 import { styled, Box, Typography } from '@mui/material';
-
+import { useState, useEffect } from 'react';
+import { API } from '../../../service/api';
 //&>img, &>p that means container is a parent and  img and p are children, it only effects to given child
 const Container = styled(Box)`
     border: 1px solid #d3cede;
@@ -38,6 +39,25 @@ const Details = styled(Typography)`
 `;
 
 const Post = ({ post }) => {
+
+    const [user, setData] = useState('');
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await API.getUserById(post);
+        setData(response.data[0]);
+        console.log("dekho dekho ", user)
+    
+      } catch (error) {
+        console.error('An error occurred while fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+ 
     const url = post.picture ? post.picture : 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=752&q=80';
     
     const addEllipsis = (str, limit) => {

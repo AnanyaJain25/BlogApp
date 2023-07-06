@@ -4,8 +4,9 @@ import {Box, TextField, Button, styled, Typography } from '@mui/material';
 import {API} from '../../service/api';
 import { DataContext } from '../../context/DataProvider';
 import { useNavigate } from 'react-router-dom';
-const Error = styled('Typography')`
 
+
+const Error = styled('Typography')`
 font-size : 10px;
 color:#ff6161;
 line-height:0;

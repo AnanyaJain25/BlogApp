@@ -28,15 +28,13 @@ const OthersProfile = () => {
 
  const [user, setData] = useState('');
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/users/${id}`);
-        const responseData = await response.json();
-
-        // Process the data if needed
-
-        setData(responseData[0]);
+        const response = await API.getUserById(id);
+        setData(response.data[0]);
+    
       } catch (error) {
         console.error('An error occurred while fetching data:', error);
       }
@@ -44,6 +42,8 @@ const OthersProfile = () => {
 
     fetchData();
   }, []);
+
+  
 
   return (
     <Box p={3}>
@@ -76,6 +76,7 @@ const OthersProfile = () => {
       }
       
       <h2>MY BLOGS</h2>
+      
       <Grid container item lg={100} xs={120} sm = {1000} >
               < UserPosts  accountId={id}/>{/*userPosts mei kisi tarah user pass kara do aur crousel ke andar account.id*/}
               

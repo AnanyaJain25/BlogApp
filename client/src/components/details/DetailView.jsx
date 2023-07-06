@@ -3,6 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import { Box, Button, Typography, styled , Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 import { API } from '../../service/api';
 
@@ -113,7 +114,7 @@ const DetailView = () => {
             },
             body:JSON.stringify({
                 model:'text-davinci-003',
-                prompt:'Extract 50 keywords from the text and show them with a space and comma in between\n\n' + text + '',
+                prompt:'Extract 15 keywords from the text and show them with a space and comma in between\n\n' + text + '',
                 temperature: 0.5,
                 max_tokens:60,
                 frequency_penalty:0.8
@@ -157,26 +158,34 @@ const DetailView = () => {
                     </>
                 }
             </Box>
+            
             <Heading>{post.title}</Heading>
+            
 
             {/* here change post.username to creater.username where creater is the user fetched by post.userid */}
 
             <Author>
+                
                 <Link to={`/?username=${post.username}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                     <Typography>Author: <span style={{fontWeight: 600}}>{post.username}</span></Typography>
                 </Link>
+                
 
                 <Link to = {`/view/${post.user_id}`} ><Avatar alt={post.name} sx={{ width: 24, height: 24 }} src={url2 || "/static/images/avatar/1.jpg"} /></Link>
- 
+                <Typography style={{margin: "0px 0px 0px 12px"}}>Likes :</Typography>
                 <Typography style={{marginLeft: 'auto'}}>{new Date(post.createdDate).toDateString()}</Typography>
             </Author>
-    
+            
             <Description>{post.description}</Description>
-
+            
             <Keywords 
             variant="contained"
              color="primary"
             onClick={submitText}>Fetch Keywords</Keywords>
+
+             <Button style={{ fontSize: "60px" , backgroundColor:"black"}}>< ThumbUpIcon/></Button>
+          
+
             <Dialog open={isOpen} onClose={()=>setIsOpen(false)} >
                 <DialogTitle>Keywords</DialogTitle>
                 <DialogContent>
