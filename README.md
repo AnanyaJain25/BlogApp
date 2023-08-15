@@ -1,5 +1,5 @@
-# UNLEASH
-A MERN web App for the blogger who can share their experiences or any views on different background like music, technology, fashion,sports, movies and about anything.
+# Unleash
+A MERN web App Designed to empower users by providing a platform to share their thoughts, experiences, and expertise through well-crafted articles.
 
 Features implemented:
 1. It is a user-friendly web project for creating articles with custom cover photos and titles.
